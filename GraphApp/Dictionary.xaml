@@ -1,0 +1,34 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:GraphApp">
+
+    <!-- Main menu -->
+    <ControlTemplate x:Key="mainMenu" x:Uid="mainMenu" TargetType="{x:Type Menu}">
+        <Menu x:Name="MenuItem" x:Uid="MenuItem">
+            <MenuItem x:Name="FileMenuItem" x:Uid="FileMenuItem" Height="30" Width="45" Header="_Файл" Foreground="Black">
+                <MenuItem x:Name="NewItem" x:Uid="NewItem" Command="{x:Static local:MainWindow.NewProjectCommand}" />
+                <MenuItem x:Name="OpenItem" x:Uid="OpenItem" Command="{x:Static local:MainWindow.OpenProjectCommand}" />
+                <MenuItem  x:Name="SaveItem" x:Uid="SaveItem" Command="{x:Static local:MainWindow.SaveProjectCommand}" />
+                <Separator />
+                <MenuItem x:Name="ExitItem" x:Uid="ExitItem" Command="{x:Static local:MainWindow.ExitCommand}" />
+            </MenuItem>
+            <MenuItem x:Name="ToolsMenuItem" x:Uid="ToolsMenuItem" Header="Инструменты" Height="30" Width="90" Foreground="Black">
+                <MenuItem x:Name="NewMatrix" x:Uid="NewMatrix" Command="{x:Static local:MainWindow.GereateMatrixCommand}" />
+                <Separator />
+                <MenuItem x:Name="UpdateMatrixItem" x:Uid="UpdateMatrixItem" Command="{x:Static local:MainWindow.UpdateMatrixCommand}" />
+                <MenuItem x:Name="UpdateGraphItem" x:Uid="UpdateGraphItem" Command="{x:Static local:MainWindow.UpdateGraphCommand}" />
+                <Separator />
+                <MenuItem x:Name="ClearGraphItem" x:Uid="ClearGraphItem" Command="{x:Static local:MainWindow.ClearGraphCommand}" />
+            </MenuItem>
+            <MenuItem x:Name="OperationMenuItem" x:Uid="OperationMenuItem" Height="30" Width="75" Header="_Вычислить" Foreground="Black">
+                <MenuItem x:Name="FindDiameterItem" x:Uid="FindDiameterItem" Command="{x:Static local:MainWindow.FindDiameterCommand}" />
+                <MenuItem x:Name="FindMedianItem" x:Uid="FindMedianItem" Command="{x:Static local:MainWindow.FindMedianCommand}" />
+                <MenuItem x:Name="FindAndDeleteVertexItem" x:Uid="FindAndDeleteVertexItem" Command="{x:Static local:MainWindow.FindAndDeleteVertexesCommand}" />
+            </MenuItem>
+            <MenuItem x:Name="AboutMenuItem" x:Uid="AboutMenuItem" Height="30" Width="90" Header="О программе" Foreground="Black">
+                <MenuItem x:Name="AboutItem" x:Uid="AboutItem" Command="{x:Static local:MainWindow.AboutCommand}" />
+            </MenuItem>
+        </Menu>
+    </ControlTemplate>
+
+</ResourceDictionary>

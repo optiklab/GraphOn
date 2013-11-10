@@ -1,0 +1,170 @@
+﻿<Window xmlns:local="clr-namespace:GraphApp"
+        x:Class="GraphApp.MainWindow"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ГрафОн"
+        Name="MainWindowGraph"
+        Icon="../Decrease Decimal.ico"
+        Height="480"
+        Width="640">
+    <!-- Команды -->
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static local:MainWindow.NewProjectCommand}"
+                        Executed="NewProjectCommand_Click"
+                        CanExecute="NewProjectCommand_CanExecute"></CommandBinding>
+        <CommandBinding Command="{x:Static local:MainWindow.SaveProjectCommand}"
+                        Executed="SaveProject_Click"
+                        CanExecute="SaveProjectCommand_CanExecute"></CommandBinding>
+        <CommandBinding Command="{x:Static local:MainWindow.OpenProjectCommand}"
+                        Executed="OpenProject_Click"
+                        CanExecute="OpenProjectCommand_CanExecute"></CommandBinding>
+        <CommandBinding Command="{x:Static local:MainWindow.ClearGraphCommand}"
+                        Executed="ClearGraph_Click"
+                        CanExecute="ClearGraphCommand_CanExecute"></CommandBinding>
+        <CommandBinding Command="{x:Static local:MainWindow.UpdateGraphCommand}"
+                        Executed="ShowGraphBasedOnMatrix_Click"
+                        CanExecute="ShowGraphBasedOnMatrix_CanExecute"></CommandBinding>
+        <CommandBinding Command="{x:Static local:MainWindow.UpdateMatrixCommand}"
+                        Executed="ShowMatrixBasedOnGraph_Click"
+                        CanExecute="ShowMatrixBasedOnGraph_CanExecute"></CommandBinding>
+        <CommandBinding Command="{x:Static local:MainWindow.FindAndDeleteVertexesCommand}"
+                        Executed="FindVertexes_Click"
+                        CanExecute="FindVertexes_CanExecute"></CommandBinding>
+        <CommandBinding Command="{x:Static local:MainWindow.GereateMatrixCommand}"
+                        Executed="GenerateMatrixButton_Click"
+                        CanExecute="GenerateMatrixButton_CanExecute"></CommandBinding>
+        <CommandBinding Command="{x:Static local:MainWindow.FindDiameterCommand}"
+                        Executed="FindDiameter_Click"
+                        CanExecute="FindDiameter_CanExecute"></CommandBinding>
+        <CommandBinding Command="{x:Static local:MainWindow.FindMedianCommand}"
+                        Executed="FindMedian_Click"
+                        CanExecute="FindMedian_CanExecute"></CommandBinding>
+        <CommandBinding Command="{x:Static local:MainWindow.AboutCommand}"
+                        Executed="About_Click"
+                        CanExecute="About_CanExecute"></CommandBinding>
+        <CommandBinding Command="{x:Static local:MainWindow.ExitCommand}"
+                        Executed="ExitCommand_Click"></CommandBinding>
+    </Window.CommandBindings>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="2"></RowDefinition>
+            <RowDefinition Height="150"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <!-- Главное меню -->
+        <Menu
+            x:Name="mainMenu"
+            x:Uid="mainMenu"
+            Grid.Row="0"
+            Height="Auto"
+            IsMainMenu="True"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Top"
+            Width="Auto"
+            Template="{StaticResource mainMenu}">
+        </Menu>
+
+        <!-- Панель инструментов -->
+        <ToolBar Grid.Row="1">
+            <Button Name="NewMatrixButton" Width="100" Height="50" Command="{x:Static local:MainWindow.GereateMatrixCommand}">
+                <StackPanel>
+                    <Image Width="20" Height="20" Source="pack://application:,,,/BrushIcons/matrixNewEnabled.png">
+                    </Image>
+                    <Label>Новая матрица</Label>
+                </StackPanel>
+            </Button>
+            <Separator></Separator>
+            <RadioButton Name="CreateButton" Width="70" Height="50">
+                <RadioButton.Content>
+                    <StackPanel>
+                        <Image Width="20" Height="20" Source="pack://application:,,,/BrushIcons/vertex.png"></Image>
+                        <Label>Вершина</Label>
+                    </StackPanel>
+                </RadioButton.Content>
+            </RadioButton>
+            <RadioButton Name="LineButton" Width="50" Height="50">
+                <RadioButton.Content>
+                    <StackPanel>
+                        <Image Width="20" Height="20" Source="pack://application:,,,/BrushIcons/riber.png"></Image>
+                        <Label>Ребро</Label>
+                    </StackPanel>
+                </RadioButton.Content>
+            </RadioButton>
+            <RadioButton Name="RemoveButton" Width="70" Height="50">
+                <RadioButton.Content>
+                    <StackPanel>
+                        <Image Width="20" Height="20" Source="pack://application:,,,/BrushIcons/delete.png"></Image>
+                        <Label>Удаление</Label>
+                    </StackPanel>
+                </RadioButton.Content>
+            </RadioButton>
+            <Separator></Separator>
+            <Button Name="ClearAllButton" Width="90" Height="50" Command="{x:Static local:MainWindow.NewProjectCommand}">
+                <StackPanel>
+                    <Image Width="20" Height="20" Source="pack://application:,,,/BrushIcons/GraphClear.png" />
+                    <Label>Очистить все</Label>
+                </StackPanel>
+            </Button>
+        </ToolBar>
+
+        <!-- Панель рисования и матрицы -->
+        <Grid Name="drawingGrid" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="320"></ColumnDefinition>
+                <ColumnDefinition Width="2"></ColumnDefinition>
+                <ColumnDefinition MinWidth="320"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <!-- Область рисования -->
+            <Grid Name="DrawingSpace" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <ScrollViewer Grid.Column="0" Name="ScatchScrollViewer" HorizontalAlignment="Stretch">
+                <local:DrawingCanvas
+                    x:Name="drawingSurface"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Background="White"
+                    ClipToBounds="True"
+                    Height="1220"
+                    Width="1500"
+                    MouseLeftButtonDown="drawingSurface_MouseLeftButtonDown"
+                    MouseMove="drawingSurface_MouseMove">
+                </local:DrawingCanvas>
+            </ScrollViewer>
+            <Button Name="UpdateGraph" Height="25" Width="25" Margin="5"
+                    Command="{x:Static local:MainWindow.UpdateGraphCommand}"
+                    ToolTip="Обновить граф"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top">
+                <Image Width="20" Height="20" Source="pack://application:,,,/BrushIcons/refresh.png" />
+            </Button>
+            </Grid>
+            <GridSplitter Name="separator1" Grid.Column="1" Height="Auto" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="LightBlue" />
+
+            <ScrollViewer Grid.Column="2" HorizontalAlignment="Stretch">
+                <StackPanel Orientation="Vertical">
+                    <Button HorizontalAlignment="Left" Name="ShowMatrix" Height="25" Width="25" Margin="5"
+                            Command="{x:Static local:MainWindow.UpdateMatrixCommand}" ToolTip="Обновить матрицу">
+                        <Image Width="20" Height="20" Source="pack://application:,,,/BrushIcons/matrixRefreshEnabled.png" />
+                    </Button>
+                    <DataGrid HorizontalAlignment="Stretch" AutoGenerateColumns="True" Height="Auto" Width="Auto"
+                    Name="matrixGrid" IsReadOnly="False"
+                    ColumnHeaderHeight="25" RowHeaderWidth="0"
+                    AlternationCount="2" AlternatingRowBackground="LightGray"
+                    CanUserSortColumns="False" CanUserResizeColumns="True"
+                    CanUserReorderColumns="False" IsManipulationEnabled="True"
+                    IsSynchronizedWithCurrentItem="True" SizeChanged="matrixGrid_SizeChanged" />
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+
+        <!-- Панель результатов -->
+        <StackPanel Grid.Row="4" Orientation="Vertical" Height="150" Width="Auto">
+            <Border HorizontalAlignment="Stretch" Width="Auto" Height="Auto" BorderThickness="0,2,0,0" BorderBrush="LightBlue" />
+            <Label>События и результаты:</Label>
+            <ListBox Name="resultsView" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="130"  Width="Auto" VerticalAlignment="Stretch"/>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,120 @@
+﻿<Window
+    x:Uid="About"
+    x:Class="GraphApp.About"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="О программе ГрафОн 1.0"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="SingleBorderWindow"
+    Height="375" 
+    Width="480"
+    Icon="../Decrease Decimal.ico"
+    ResizeMode="NoResize"
+    Loaded="Window_Loaded">
+    <Grid x:Uid="AboutGrid">
+    <Grid.RowDefinitions>
+        <RowDefinition
+            x:Uid="RowDefinition_1"
+            Height="35"></RowDefinition>
+        <RowDefinition 
+            x:Uid="RowDefinition_2"
+            Height="*"></RowDefinition>
+    </Grid.RowDefinitions>
+    <Grid.Resources>
+        <!-- TextBlock style -->
+        <Style x:Key="TextBlocks" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Foreground" Value="#FF404040" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+        </Style>
+    </Grid.Resources>
+
+        <StackPanel
+            x:Uid="HeaderStack"
+            Grid.Row="0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Orientation="Horizontal"
+            Margin="0"></StackPanel>
+
+        <Label
+            Name="WebSite"
+            x:Uid="WebSite"
+            Grid.Row="0"
+            Height="Auto"
+            Width="Auto" 
+            HorizontalAlignment="Left"
+            HorizontalContentAlignment="Right"
+            VerticalContentAlignment="Center"
+            Content="http://www.ayarkov.com"/>
+        <Label
+            Name="Company"
+            x:Uid="Company"
+            Grid.Row="0"
+            Height="Auto"
+            Width="Auto" 
+            HorizontalAlignment="Right"
+            HorizontalContentAlignment="Right"
+            VerticalContentAlignment="Center"
+            Content="Copyright © А. Ярков 2010"/>
+
+        <Border
+        x:Uid="DescriptionBorder"
+        Grid.Row="1"
+        Margin="5"
+        Padding="10"
+        BorderThickness="3"
+        BorderBrush="LightBlue"
+        CornerRadius="5">
+            <StackPanel
+            x:Uid="DescriptionStack"
+            Grid.Row="1"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch">
+
+                <TextBlock
+                Name="Description"
+                    x:Uid="Description"
+                    Style="{StaticResource TextBlocks}"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch" 
+                    TextWrapping="Wrap"
+                    TextAlignment="Left"
+                    Margin="0"/>
+
+                <TextBox
+                    Name="ExactLinkText"
+                    x:Uid="ExactLinkText"
+                    IsReadOnly="True"
+                    TextBlock.FontSize="14"
+                    HorizontalContentAlignment="Center"
+                    Margin="0,0,0,0" 
+                    Foreground="#FF00A2E8">
+                        http://www.ayarkov.com/project.php?id=21
+                    </TextBox>
+
+                <TextBlock
+                    Name="DescriptionContinue"
+                    x:Uid="DescriptionContinue"
+                    Style="{StaticResource TextBlocks}"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch" 
+                    TextWrapping="Wrap"
+                    TextAlignment="Left"
+                    Margin="0,10,0,0"/>
+
+                <TextBox
+                    Name="TechSupportMail"
+                    x:Uid="TechSupportMail"
+                    IsReadOnly="True"
+                    TextBlock.FontWeight="Bold"
+                    TextBlock.FontSize="14"
+                    HorizontalContentAlignment="Center"
+                    Margin="0,10,0,0" 
+                    Foreground="#FF00A2E8">
+                </TextBox>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
